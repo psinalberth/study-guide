@@ -37,6 +37,6 @@ public class WriteThroughService {
 
     public void updateProduct(final Product product) {
         log.info("Updating product with write-through strategy");
-        cacheManager.put(product.sku(), productRepository.update(product), Duration.ofMillis(1).toMillis());
+        cacheManager.put(product.sku(), productRepository.update(product), Duration.ofSeconds(10).toMillis());
     }
 }
