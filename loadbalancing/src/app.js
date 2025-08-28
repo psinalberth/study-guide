@@ -23,7 +23,6 @@ const greetings = (res) => {
   });
 };
 
-
 app.get("", (req, res) => {
   const delay = req.query.delay;
   console.log(
@@ -33,7 +32,18 @@ app.get("", (req, res) => {
     alg(res, delay);
 });
 
+app.get(/.*/, (req, res) => {
+  const delay = req.query.delay;
+  console.log(
+    `Request received at server ${SERVER_NAME} with delay=${delay}`
+  );
+    const alg = algorithms[ALGORITHM] || algorithms.default;
+    alg(res, delay);
+});
+
+
 app.listen(PORT, () => {
   console.log(`Server ${SERVER_NAME} is running on port ${PORT}`);
 });
+
 export default app;

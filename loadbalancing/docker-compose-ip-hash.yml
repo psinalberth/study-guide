@@ -3,11 +3,11 @@ version: '3.8'
 services:
   nginx:
     image: nginx:latest
-    container_name: nginx-round-robin-loadbalancer
+    container_name: nginx-ip-hash-loadbalancer
     ports:
       - "8080:80"
     volumes:
-      - ./nginx/nginx-round-robin.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/nginx-ip-hash.conf:/etc/nginx/nginx.conf:ro
     networks:
       - nginx-net
     depends_on:
@@ -21,7 +21,7 @@ services:
     environment:
       - SERVER_NAME=#1
       - PORT=3000
-      - ALGORITHM=round-robin
+      - ALGORITHM=ip-hash
     networks:
       - nginx-net
 
@@ -31,7 +31,7 @@ services:
     environment:
       - SERVER_NAME=#2
       - PORT=3000
-      - ALGORITHM=round-robin
+      - ALGORITHM=ip-hash
 
   app3:
     <<: *base-app
@@ -39,7 +39,7 @@ services:
     environment:
       - SERVER_NAME=#3
       - PORT=3000
-      - ALGORITHM=round-robin
+      - ALGORITHM=ip-hash
 
 networks:
   nginx-net:
